@@ -11,7 +11,7 @@ const UserGrid: React.FC<UserGridProps> = ({ users }) => {
   return (
     <Box sx={{ width: '100%', backgroundColor: primary, mt: '10vh', boxShadow: 6 }}>
       <Grid container sx={{ pt: '50px', pb: '80px', backgroundColor: blue[600], width: '80%', m: 'auto' }}>
-        {users.map((user: User) => (
+        {users?.map((user: User) => (
           <Grid
             key={user.id}
             item
