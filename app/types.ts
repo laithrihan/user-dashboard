@@ -1,3 +1,7 @@
+import { z } from "zod";
+import { registerSchema } from "./hooks/useRegisterForm";
+import { loginSchema } from "./validation/loginSchema";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export interface User {
   error?: Error,
@@ -22,4 +26,15 @@ export interface GridCardProps {
 
 export interface UserGridProps {
   users: User[] | null;
+}
+
+export type RegisterFormData = z.infer<typeof registerSchema>;
+export type LoginFormData = z.infer<typeof loginSchema>;
+export interface LoginProviderProps {
+  children: ReactNode; 
+}
+
+export interface LoginContextProps {
+  loggedIn: boolean;
+  setLoggedIn: Dispatch<SetStateAction<boolean>>;
 }

@@ -7,7 +7,7 @@ import { User, UserGridProps } from '../types';
 
 const UserGrid: React.FC<UserGridProps> = ({ users }) => {
   const primary = blue[500];
-  
+
   return (
     <Box sx={{ width: '100%', backgroundColor: primary, mt: '10vh', boxShadow: 6 }}>
       <Grid container sx={{ pt: '50px', pb: '80px', backgroundColor: blue[600], width: '80%', m: 'auto' }}>
@@ -20,11 +20,11 @@ const UserGrid: React.FC<UserGridProps> = ({ users }) => {
             xs={12}
             sx={{ m: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
-            <GridCard 
-              id={user.id} 
-              name={user.name} 
-              email={user.email} 
-              city={user.address.city}  
+            <GridCard
+              id={user.id}
+              name={user.name}
+              email={user.email}
+              city={user.address.city}
             />
           </Grid>
         ))}

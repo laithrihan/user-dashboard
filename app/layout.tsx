@@ -1,6 +1,9 @@
+// app/layout.tsx
+
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/NavBar";
+import { LoginProvider } from "./context/LoginContext";
 
 export const metadata: Metadata = {
   title: "User Dashboard",
@@ -15,8 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NavBar/>
-        {children}
+      <LoginProvider >
+          <NavBar />
+          {children} 
+      </LoginProvider>
       </body>
     </html>
   );

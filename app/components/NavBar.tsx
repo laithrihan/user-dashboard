@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,17 +13,26 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Link from 'next/link';
+import { useLogin } from '../context/LoginContext';
+
+const guest = [ // The navbar settings links before login
+  { id: "1", name: "Login", path: "/login" },
+  { id: "2", name: "Register", path: "/register" },
+];
 
 const pages = ['Account', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile', 'Account', 'Dashboard']; // Settings links after login
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const { loggedIn, setLoggedIn } = useLogin(); // Login state check
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+  
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -34,6 +43,11 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleLogOut = () => {
+    handleCloseUserMenu();
+    setLoggedIn(false); // Render the (settings) links
   };
 
   return (
@@ -87,7 +101,7 @@ function Navbar() {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem  key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
                 </MenuItem>
               ))}
@@ -112,7 +126,7 @@ function Navbar() {
           >
             DASHBOARD
           </Typography>
-          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } ,gap:'100px',mr:'auto',ml:{sm:'auto',xl:'320px'} }}>
+          <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, gap: '100px', mr: 'auto', ml: { sm: 'auto', xl: '320px' } }}>
             {pages.map((page) => (
               <Button
                 key={page}
@@ -145,11 +159,26 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                </MenuItem>
-              ))}
+              {loggedIn ? (
+                <>
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                  <MenuItem onClick={handleLogOut}>
+                    <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                  </MenuItem>
+                </>
+              ) : (
+                guest.map((guestItem) => (
+                  <MenuItem key={guestItem.id} onClick={handleCloseUserMenu}>
+                    <Link href={guestItem.path}>
+                      <Typography sx={{ textAlign: 'center' }}>{guestItem.name}</Typography>
+                    </Link>
+                  </MenuItem>
+                ))
+              )}
             </Menu>
           </Box>
         </Toolbar>
@@ -157,4 +186,5 @@ function Navbar() {
     </AppBar>
   );
 }
+
 export default Navbar;

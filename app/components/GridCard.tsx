@@ -9,11 +9,11 @@ import CardActions from '@mui/material/CardActions';
 import SendIcon from '@mui/icons-material/Send';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import {  GridCardProps } from '../types';
+import { GridCardProps } from '../types';
 
 
 
-export default function GridCard({ name, email, city , id }: GridCardProps) {
+export default function GridCard({ name, email, city, id }: GridCardProps) {
   return (
     <Card sx={{ width: '350px', m: '30px 20px' }}>
       <CardActionArea href={`/users/${id}`}>
