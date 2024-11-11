@@ -14,9 +14,14 @@ export const useRegisterForm = () => {
   });
 
   const onSubmit = (data: RegisterFormData) => {
-    localStorage.setItem('registerFormData', JSON.stringify(data));
-    window.alert("Signed Up Successfully")
+    const existingData = localStorage.getItem('registerFormData');
 
+    if (existingData) {
+      window.alert("You have already signed up!");
+    } else {
+      localStorage.setItem('registerFormData', JSON.stringify(data));
+      window.alert("Signed Up Successfully");
+    }
   };
 
   return {
@@ -26,5 +31,5 @@ export const useRegisterForm = () => {
     onSubmit,
   };
 };
-export { registerSchema };
 
+export { registerSchema };
