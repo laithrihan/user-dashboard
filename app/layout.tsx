@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import { LoginProvider } from "./context/LoginContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   title: "User Dashboard",
@@ -18,10 +20,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <LoginProvider >
-          <NavBar />
-          {children} 
-      </LoginProvider>
+        <LoginProvider>
+          <ToastContainer 
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          
+          /> 
+          <main>
+            <NavBar />
+            {children}
+          </main>
+        </LoginProvider>
       </body>
     </html>
   );

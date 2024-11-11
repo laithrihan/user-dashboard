@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterFormData } from '../types';
 import { registerSchema } from '../validation/registerSchema';
+import { toast } from 'react-toastify';
 
 export const useRegisterForm = () => {
   const {
@@ -17,10 +18,10 @@ export const useRegisterForm = () => {
     const existingData = localStorage.getItem('registerFormData');
 
     if (existingData) {
-      window.alert("You have already signed up!");
+      toast.warning("You have already signed up!");
     } else {
       localStorage.setItem('registerFormData', JSON.stringify(data));
-      window.alert("Signed Up Successfully");
+      toast.success("Signed Up Successfully");
     }
   };
 

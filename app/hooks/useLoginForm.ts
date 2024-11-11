@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '../validation/loginSchema';
 import { LoginFormData } from '../types';
 import { useLogin } from '../context/LoginContext';
-
+import {toast} from "react-toastify"
 export const useLoginForm = () => {
     const { loggedIn, setLoggedIn } = useLogin();
     const {
@@ -18,7 +18,7 @@ export const useLoginForm = () => {
     const onSubmit = (data: LoginFormData) => {
         const storedData = localStorage.getItem('registerFormData');
         if (!storedData) {
-            alert('No registration data found.');
+            toast.error('No registration data found.');
             return;
         }
 
@@ -29,11 +29,11 @@ export const useLoginForm = () => {
         ) {
             setLoggedIn(true);
             console.log(`logged in : ${loggedIn}`);
-            window.alert("Logged In Successfully")
+            toast.success("Logged In Successfully")
             if (typeof window !== "undefined") {
             }
         } else {
-            alert('Invalid email or password.');
+            toast.error('Invalid email or password.');
         }
     };
 
